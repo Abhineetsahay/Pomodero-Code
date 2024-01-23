@@ -1,0 +1,67 @@
+:root {
+  --blue: #332941;
+}
+body {
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  box-sizing: border-box;
+  background-color: var(--blue);
+  transition-duration: 2s;
+}
+.upperbutton {
+  /* height: 500px;
+   width: 500px; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.upperbutton button {
+  border: none;
+  position: relative;
+  top: 150px;
+  margin-right: 20px;
+  color: #fff;
+  cursor: pointer;
+
+  font-size: 20px;
+  /* border: 1px solid #fff;
+ border-radius:  4px;; */
+  background: none;
+}
+.upperbutton button:focus {
+  border: 1px solid #fff;
+  border-radius: 4px;
+}
+.clock {
+  margin-top: 150px;
+  margin-bottom: 30px;
+  font-size: 15rem;
+  line-height: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: arial, sans-serif;
+}
+.start-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.start-button button {
+  cursor: pointer;
+  box-shadow: rgb(235, 235, 235) 0px 6px 0px;
+  font-size: 22px;
+  height: 55px;
+  text-transform: uppercase;
+  color: hsl(175, 26%, 41%);
+  font-weight: bold;
+  width: 200px;
+  background-color: white;
+  border-width: initial;
+  border-style: none;
+  margin: 20px 0px 0px;
+  padding: 0px 12px;
+  border-radius: 4px;
+  transition: color 0.5s ease-in-out 0s;
+}
