@@ -87,7 +87,7 @@ function startp(value) {
         seethesessions(time2);
       }
     }
-  });
+  },1000);
 }
 //here it will automatically switch to shortbreak and to long breal when the timer reaches 00:00
 function switchToShortBreak() {
