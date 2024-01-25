@@ -1,4 +1,3 @@
-// This is not fully completed
 const time = {
   Pomodero: 25,
   Shortbreak: 5,
@@ -22,6 +21,8 @@ let timing = document.querySelector(".timing");
 let button = document.getElementById("button");
 let seconds1 = document.querySelector(".seconds");
 let count;
+let time2 = 0;
+let sessions=document.getElementById("sessions");
 let toggle = true;
 //changing the background as it clicks on the on of the button;
 Pomodero.addEventListener("click", () => {
@@ -33,14 +34,14 @@ Pomodero.addEventListener("click", () => {
 });
 shortbreak.addEventListener("click", () => {
   timing.textContent = string(time.Shortbreak);
-  document.body.style.backgroundColor = "orange";
+  document.body.style.backgroundColor = "#1E1E1E";
   clearInterval(count);
   seconds1.innerHTML = "00";
   button.textContent = time.button1;
 });
 longbreak.addEventListener("click", () => {
   timing.textContent = time.longbreak;
-  document.body.style.backgroundColor = "coral";
+  document.body.style.backgroundColor = "#001E1E";
   clearInterval(count);
   seconds1.innerHTML = "00";
   button.textContent = time.button1;
@@ -61,7 +62,7 @@ function startp(value) {
   clearInterval(count);
   let totalminutes = value * 60;
   count = setInterval(function () {
-    let minutes = parseInt(totalminutes / 60);
+    let minutes = Math.floor((totalminutes % 3600) / 60);
     let seconds = totalminutes % 60;
     timing.innerHTML = string(minutes);
     seconds1.innerHTML = string(seconds);
@@ -69,10 +70,51 @@ function startp(value) {
     if (totalminutes < 0) {
       clearInterval(count);
     }
-    // if (timing.innerHTML==="00"&&seconds1.innerHTML==="00") {
-    //   console.log("shzdjkl")
-    //   button.textContent = time.button1;
-    //   location.reload();
-    // }
+    if (timing.innerHTML === "00" && seconds1.innerHTML === "00") {
+      console.log("dsj");
+      if (Pomodero.style.border !== "none") {
+        Pomodero.style.border = "none";
+        switchToShortBreak();
+      } else if (shortbreak.style.border !== "none") {
+        shortbreak.style.border = "none";
+        switchTolongBreak();
+      }
+      else if(longbreak.style.border!=="none"){
+        longbreak.style.border = "none";
+        switchToPomodero();
+        time2++;
+        console.log(time2);
+        seethesessions(time2);
+      }
+    }
   });
+}
+//here it will automatically switch to shortbreak and to long breal when the timer reaches 00:00
+function switchToShortBreak() {
+  timing.textContent = string(time.Shortbreak);
+  document.body.style.backgroundColor = "#1E1E1E";
+  seconds1.innerHTML = "00";
+  button.textContent = time.button1;
+  toggle = true;
+  shortbreak.style.border = "1px solid #fff";
+}
+function switchTolongBreak() {
+  timing.textContent = time.longbreak;
+  document.body.style.backgroundColor = "#001E1E";
+  seconds1.innerHTML = "00";
+  button.textContent = time.button1;
+  toggle = true;
+  longbreak.style.border = "1px solid #fff";
+}
+function switchToPomodero() {
+  timing.textContent = time.Pomodero;
+  document.body.style.backgroundColor = "#332941";
+  seconds1.innerHTML = "00";
+  button.textContent = time.button1;
+  toggle = true;
+  Pomodero.style.border = "1px solid #fff";
+}
+//here we can see the sessions we did in a day
+function seethesessions(session){
+  sessions.innerHTML=session;
 }

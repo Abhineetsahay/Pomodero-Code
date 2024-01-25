@@ -23,14 +23,19 @@ body {
   margin-right: 20px;
   color: #fff;
   cursor: pointer;
-
   font-size: 20px;
-  /* border: 1px solid #fff;
- border-radius:  4px;; */
   background: none;
 }
-.upperbutton button:focus {
+#pomodero {
   border: 1px solid #fff;
+  border-radius: 4px;
+}
+#shortbreak {
+  border: none;
+  border-radius: 4px;
+}
+#longbreak {
+  border: none;
   border-radius: 4px;
 }
 .clock {
@@ -64,4 +69,14 @@ body {
   padding: 0px 12px;
   border-radius: 4px;
   transition: color 0.5s ease-in-out 0s;
+}
+.sessions{
+  color: white;
+  display: inline-block;
+  font-size: 30px;
+}
+.sessions p{
+  margin: 0;
+  padding: 0;
+  padding-top: 10px;
 }
