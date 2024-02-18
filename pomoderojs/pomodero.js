@@ -99,7 +99,7 @@ function startp(value) {
         seethesessions(time2);
       }
     }
-  });
+  },1000);
 }
 // Switch to short break
 function switchToShortBreak() {
