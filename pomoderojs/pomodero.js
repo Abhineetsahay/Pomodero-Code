@@ -6,7 +6,8 @@ const time = {
   button: "end",
   button1: "start",
 };
-//gets a 0 in front of a number
+
+// Function to format numbers
 function string(time1) {
   let formattedNumber = String(time1);
   if (formattedNumber.length === 1) {
@@ -14,7 +15,8 @@ function string(time1) {
   }
   return formattedNumber;
 }
-//selecting all the elements
+
+// Selecting all the elements
 let Pomodero = document.getElementById("pomodero");
 let shortbreak = document.getElementById("shortbreak");
 let longbreak = document.getElementById("longbreak");
@@ -25,15 +27,18 @@ let sessions = document.getElementById("sessions");
 let count;
 let time2 = 0;
 let toggle = true;
-//changing the background as it clicks on the on of the button;
+let remainingTime = 0;
+let isPaused = false;
+
+// Changing the background as it clicks on one of the buttons
 Pomodero.addEventListener("click", () => {
   timing.textContent = time.Pomodero;
   document.body.style.backgroundColor = "#332941";
   clearInterval(count);
   seconds1.innerHTML = time.second2;
-  button.textContent = time.button1;
-  
+  button.textContent = time.button1; 
 });
+
 shortbreak.addEventListener("click", () => {
   timing.textContent = string(time.Shortbreak);
   document.body.style.backgroundColor = "#1E1E1E";
@@ -41,6 +46,7 @@ shortbreak.addEventListener("click", () => {
   seconds1.innerHTML = time.second2;
   button.textContent = time.button1;
 });
+
 longbreak.addEventListener("click", () => {
   timing.textContent = time.longbreak;
   document.body.style.backgroundColor = "#001E1E";
@@ -48,31 +54,38 @@ longbreak.addEventListener("click", () => {
   seconds1.innerHTML = time.second2;
   button.textContent = time.button1;
 });
-//button to start and stop
+
+// Button to start and stop
 button.addEventListener("click", function fun () {
   if (toggle) {
     button.textContent = time.button;
-    startp(timing.textContent);
+    if (isPaused) {
+      startp(remainingTime); // Resume countdown from remaining time
+    } else {
+      startp(parseInt(timing.textContent) * 60); // Start countdown from the beginning
+    }
   } else {
     button.textContent = time.button1;
     clearInterval(count);
+    remainingTime = (parseInt(timing.textContent) * 60) + parseInt(seconds1.textContent); // Store remaining time when paused
+    isPaused = true;
   }
   toggle = !toggle;
 });
-//program of the countdown timer
+// Program of the countdown timer
 function startp(value) {
   clearInterval(count);
-  let totalminutes = value * 60;
+  let totalSeconds = value-1;
   count = setInterval(function () {
-    let minutes = Math.floor((totalminutes % 3600) / 60);
-    let seconds = totalminutes % 60;
+    let minutes = Math.floor(totalSeconds / 60);
+    let seconds = totalSeconds % 60 ;
     timing.innerHTML = string(minutes);
     seconds1.innerHTML = string(seconds);
-    totalminutes--;
-    if (totalminutes < 0) {
+    totalSeconds--;
+    if (totalSeconds < 0) {
       clearInterval(count);
     }
-    if (timing.innerHTML === time.second2 && seconds1.innerHTML === time.second2) {
+    if (timing.innerHTML === "00" && seconds1.innerHTML === "00") {
       if (Pomodero.style.border !== "none") {
         Pomodero.style.border = "none";
         switchToShortBreak();
@@ -86,11 +99,10 @@ function startp(value) {
         seethesessions(time2);
       }
     }
-  },1000);
+  });
 }
-//here it will automatically switch to shortbreak and to long breal when the timer reaches 00:00
+// Switch to short break
 function switchToShortBreak() {
-  startp()
   timing.textContent = string(time.Shortbreak);
   document.body.style.backgroundColor = "#1E1E1E";
   seconds1.innerHTML = time.second2;
@@ -98,6 +110,8 @@ function switchToShortBreak() {
   toggle = true;
   shortbreak.style.border = "1px solid #fff";
 }
+
+// Switch to long break
 function switchTolongBreak() {
   timing.textContent = time.longbreak;
   document.body.style.backgroundColor = "#001E1E";
@@ -106,6 +120,8 @@ function switchTolongBreak() {
   toggle = true;
   longbreak.style.border = "1px solid #fff";
 }
+
+// Switch to Pomodero
 function switchToPomodero() {
   timing.textContent = time.Pomodero;
   document.body.style.backgroundColor = "#332941";
@@ -114,7 +130,8 @@ function switchToPomodero() {
   toggle = true;
   Pomodero.style.border = "1px solid #fff";
 }
-//here we can see the sessions we did in a day
+
+// Show the sessions
 function seethesessions(session) {
   sessions.textContent = session;
 }
